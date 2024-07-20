@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <input type="file" name="fileToUpload" id="fileToUpload">
+<button id="hello">HIT ME</button>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+    $("#hello").on('click', function (){
+    let formData = new FormData();
+    let fileData = new FormData();
+    formData.append('email', 'ali.innsadayat@argonteq.com');
+    formData.append('password', 'Password@123');
+    formData.append('full_name', 'Hassan');
+    formData.append('living', 'yes');
+    formData.append('profile_pic',  $("#fileToUpload")[0].files[0]);
+
+var request = $.ajax({
+  url: "http://127.0.0.1:8000/core/user_profile/signup/",
+  type: "POST",
+  data: formData,
+  contentType: false,
+  processData: false,
+  dataType: "application/json"
+});
+
+request.done(function(msg) {
+  console.log('done')
+});
+
+request.fail(function(jqXHR, textStatus) {
+  console.log( "Request failed: " + textStatus );
+});
+    });
+
+
+</script>
+</html>
